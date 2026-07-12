@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Ahoora Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media(max-width:860px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{background:var(--ink-2); border:1px solid var(--line); border-radius:6px; overflow:hidden; display:block; transition:transform .3s ease, border-color .3s ease;}
+  .proj-card:hover{transform:translateY(-6px); border-color:var(--line-strong);}
+  .proj-thumb{aspect-ratio:16/10; position:relative; overflow:hidden;}
+  .proj-thumb iframe{width:220%; height:220%; border:0; transform:scale(0.4545); transform-origin:top left; pointer-events:none;}
+  .proj-body{padding:28px 30px 30px;}
+  .proj-body .k{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:10px; display:block;}
+  .proj-body h3{font-size:22px; margin-bottom:10px;}
+  .proj-body p{font-size:14.5px; line-height:1.75; color:var(--text-muted); margin-bottom:16px;}
+  .proj-tags{display:flex; gap:8px; flex-wrap:wrap;}
+  .proj-tags span{font-size:11.5px; color:var(--text-muted); border:1px solid var(--line); padding:4px 11px; border-radius:20px;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><em>Ahoora</em> Studio</a>
+  <div class="nav-links">
+    <a href="work.html" class="ghost active">Work</a>
+    <a href="services.html" class="ghost">Services</a>
+    <a href="about.html" class="ghost">About</a>
+    <a href="contact.html" class="nav-cta">Start a project</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Selected work</div>
+    <h1>Four projects, four different worlds.</h1>
+    <p>Each one built as a real, working site — not a template with a new logo. Click through to see the full case study and a live demo of each.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="proj-grid">
+      <a class="proj-card" href="projects/risheh.html">
+        <div class="proj-thumb"><iframe src="demos/risheh-beauty-website.html"></iframe></div>
+        <div class="proj-body">
+          <span class="k">Beauty & E-commerce</span>
+          <h3>Risheh</h3>
+          <p>A natural hair & skin care brand, built to feel like a quiet, expensive botanical studio.</p>
+          <div class="proj-tags"><span>Shopping cart flow</span><span>RTL / Persian</span><span>Animation</span></div>
+        </div>
+      </a>
+      <a class="proj-card" href="projects/cafe.html">
+        <div class="proj-thumb"><iframe src="demos/cafe.html"></iframe></div>
+        <div class="proj-body">
+          <span class="k">Local business</span>
+          <h3>Ember Roasters</h3>
+          <p>A specialty coffee shop site built warm, tactile and unpretentious — like the counter itself.</p>
+          <div class="proj-tags"><span>Menu system</span><span>Single location</span></div>
+        </div>
+      </a>
+      <a class="proj-card" href="projects/gym.html">
+        <div class="proj-thumb"><iframe src="demos/gym.html"></iframe></div>
+        <div class="proj-body">
+          <span class="k">Fitness</span>
+          <h3>Forge Athletics</h3>
+          <p>A strength & conditioning gym site built loud, dark and confident — a coach's brand, not a franchise.</p>
+          <div class="proj-tags"><span>Class booking</span><span>Bold identity</span></div>
+        </div>
+      </a>
+      <a class="proj-card" href="projects/realestate.html">
+        <div class="proj-thumb"><iframe src="demos/realestate.html"></iframe></div>
+        <div class="proj-body">
+          <span class="k">Property</span>
+          <h3>Meridian Properties</h3>
+          <p>A boutique estate agency site built calm and unhurried — the opposite of a listings portal.</p>
+          <div class="proj-tags"><span>Listings grid</span><span>Premium tone</span></div>
+        </div>
+      </a>
+    </div>
+    <div style="margin-top:60px; text-align:center;">
+      <a href="contact.html" class="btn btn-primary">Start your project</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col" style="max-width:260px;">
+        <h4><em>Ahoora</em> Studio</h4>
+        <p style="color:var(--text-muted); font-size:14px; line-height:1.8;">Web design and development for small businesses, built remotely and shipped fast.</p>
+      </div>
+      <div class="foot-col"><h4>Site</h4><a href="work.html">Work</a><a href="services.html">Services</a><a href="about.html">About</a></div>
+      <div class="foot-col"><h4>Start here</h4><a href="contact.html">Contact</a><a href="mailto:arya.master1981@gmail.com">arya.master1981@gmail.com</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Ahoora Studio</span><span>Based abroad, building for Cape Town</span></div>
+  </div>
+</footer>
+<div class="contact-float">
+  <a class="cf-whatsapp" href="https://wa.me/989355646959" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36c1.36.71 2.9 1.12 4.62 1.12 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.71 13.98c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.19-3.55-.76-2.98-1.23-4.9-4.24-5.05-4.44-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.61.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.94.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+  </a>
+  <a class="cf-telegram" href="https://t.me/ahoora_ala" target="_blank" aria-label="Telegram" title="Telegram">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.29l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-2 1.92c-.23.23-.42.42-.82.42z"/></svg>
+  </a>
+  <a class="cf-email" href="mailto:arya.master1981@gmail.com" aria-label="Email" title="Email">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14161f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 6l-10 7L2 6"></path></svg>
+  </a>
+</div>
+</body>
+</html>

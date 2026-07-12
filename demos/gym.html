@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge Athletics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0d0d0d; --panel:#161616; --hot:#ff4d2e; --steel:#9aa0a6; --text:#f2f2f0;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-weight:300; overflow-x:hidden;}
+  h1,h2{font-family:'Anton',sans-serif; font-weight:400; letter-spacing:1px; text-transform:uppercase;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+  nav{display:flex; justify-content:space-between; align-items:center; padding:28px 32px;}
+  .logo{font-family:'Anton',sans-serif; font-size:22px; letter-spacing:1px;}
+  .logo span{color:var(--hot);}
+  .nav-links{display:flex; gap:30px; font-size:13px; letter-spacing:1px; color:var(--steel); text-transform:uppercase;}
+  .hero{min-height:88vh; display:flex; align-items:center; position:relative; overflow:hidden;
+    background:linear-gradient(180deg, #141414, #0d0d0d);}
+  .hero::before{content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(115deg, rgba(255,77,46,0.05) 0 2px, transparent 2px 60px);}
+  .eyebrow{font-size:13px; letter-spacing:3px; color:var(--hot); margin-bottom:22px; text-transform:uppercase;}
+  .hero h1{font-size:clamp(50px,9vw,120px); line-height:0.98;}
+  .hero p{margin-top:26px; font-size:17px; line-height:1.8; color:var(--steel); max-width:440px; font-weight:300;}
+  .btn{display:inline-block; margin-top:38px; padding:17px 36px; background:var(--hot); color:#0d0d0d;
+    font-family:'Inter'; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; font-size:14px;}
+  .bar-wrap{margin-top:60px; max-width:420px;}
+  .bar-label{display:flex; justify-content:space-between; font-size:12px; color:var(--steel); margin-bottom:8px; letter-spacing:1px; text-transform:uppercase;}
+  .bar-track{height:6px; background:var(--panel); border-radius:4px; overflow:hidden;}
+  .bar-fill{height:100%; width:0%; background:var(--hot); border-radius:4px; animation:fill 2.4s ease-out forwards .3s;}
+  @keyframes fill{to{width:82%;}}
+  .stats{background:var(--panel); padding:80px 0; border-top:1px solid #222; border-bottom:1px solid #222;}
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); text-align:center; gap:20px;}
+  .stat h2{font-size:clamp(34px,4vw,54px); color:var(--hot);}
+  .stat p{margin-top:10px; font-size:13px; letter-spacing:1px; color:var(--steel); text-transform:uppercase;}
+  @media(max-width:760px){.stats-grid{grid-template-columns:1fr 1fr;}}
+  .classes{padding:110px 0;}
+  .classes h2{font-size:clamp(30px,4vw,46px); margin-bottom:60px;}
+  .class-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:#222;}
+  .class-item{background:var(--bg); padding:38px;}
+  .class-item h3{font-family:'Anton'; font-size:22px; margin-bottom:10px; text-transform:uppercase;}
+  .class-item p{font-size:14px; color:var(--steel); line-height:1.75;}
+  @media(max-width:820px){.class-grid{grid-template-columns:1fr;}}
+  footer{padding:50px 32px; text-align:center; color:var(--steel); font-size:13px;}
+
+  .schedule{background:var(--panel); padding:100px 0; border-top:1px solid #222; border-bottom:1px solid #222;}
+  .schedule h2{font-size:clamp(28px,4vw,44px); margin-bottom:50px;}
+  table.sched{width:100%; border-collapse:collapse; font-size:14.5px;}
+  table.sched th{text-align:right; color:var(--hot); font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; padding:12px 16px; border-bottom:1px solid #2a2a2a;}
+  table.sched td{padding:16px; border-bottom:1px solid #1e1e1e; color:var(--steel);}
+  table.sched tr td:first-child{color:var(--text); font-weight:500;}
+  table.sched tr:hover td{background:rgba(255,77,46,0.04);}
+
+  .pricing{padding:110px 0;}
+  .pricing h2{font-size:clamp(28px,4vw,44px); margin-bottom:50px;}
+  .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:#222;}
+  .price-card{background:var(--bg); padding:38px;}
+  .price-card.pop{background:var(--panel);}
+  .price-card .tag{color:var(--hot); font-size:11.5px; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; display:block;}
+  .price-card h3{font-family:'Anton'; font-size:22px; text-transform:uppercase; margin-bottom:10px;}
+  .price-card .amt{font-family:'Anton'; font-size:34px; color:var(--hot); margin:14px 0;}
+  .price-card .amt span{font-family:'Inter'; font-size:13px; color:var(--steel); text-transform:none; letter-spacing:0;}
+  .price-card p{font-size:13.5px; color:var(--steel); line-height:1.7; margin-bottom:22px;}
+  @media(max-width:860px){.price-grid{grid-template-columns:1fr;}}
+
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:300;
+    width:56px; height:56px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    transition:transform .25s ease;
+  }
+  .wa-float:hover{transform:scale(1.08);}
+</style>
+</head>
+<body>
+<nav><div class="logo">FORGE <span>ATHLETICS</span></div><div class="nav-links"><a>Programs</a><a>Coaches</a><a>Join</a></div></nav>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Strength & conditioning — Cape Town</div>
+    <h1>Train like<br>it matters.</h1>
+    <p>Small-group coaching, real programming, no guesswork. First session is on us.</p>
+    <a href="#" class="btn">Book a free session</a>
+    <div class="bar-wrap">
+      <div class="bar-label"><span>This month's squad goal</span><span>82%</span></div>
+      <div class="bar-track"><div class="bar-fill"></div></div>
+    </div>
+  </div>
+</section>
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><h2>6</h2><p>Coaches</p></div>
+    <div class="stat"><h2>230+</h2><p>Members</p></div>
+    <div class="stat"><h2>05:30</h2><p>First class</p></div>
+    <div class="stat"><h2>7</h2><p>Days a week</p></div>
+  </div>
+</section>
+<section class="classes">
+  <div class="wrap">
+    <h2>Pick your lane</h2>
+    <div class="class-grid">
+      <div class="class-item"><h3>Strength</h3><p>Barbell-focused, 4-day split, built around your numbers.</p></div>
+      <div class="class-item"><h3>Conditioning</h3><p>45-minute sessions that leave nothing left in the tank.</p></div>
+      <div class="class-item"><h3>Open Gym</h3><p>Coached but self-paced — bring your own program.</p></div>
+    </div>
+  </div>
+</section>
+<section class="schedule">
+  <div class="wrap">
+    <h2>This week's schedule</h2>
+    <table class="sched">
+      <tr><th>Time</th><th>Mon</th><th>Wed</th><th>Fri</th><th>Sat</th></tr>
+      <tr><td>05:30</td><td>Strength</td><td>Strength</td><td>Strength</td><td>—</td></tr>
+      <tr><td>06:30</td><td>Conditioning</td><td>—</td><td>Conditioning</td><td>Open Gym</td></tr>
+      <tr><td>17:00</td><td>Conditioning</td><td>Strength</td><td>—</td><td>—</td></tr>
+      <tr><td>18:00</td><td>Open Gym</td><td>Conditioning</td><td>Strength</td><td>—</td></tr>
+    </table>
+  </div>
+</section>
+<section class="pricing">
+  <div class="wrap">
+    <h2>Membership</h2>
+    <div class="price-grid">
+      <div class="price-card">
+        <span class="tag">Drop-in</span><h3>Single Session</h3>
+        <div class="amt">R150</div>
+        <p>Try any class once. No commitment.</p>
+        <a href="#" class="btn" style="margin-top:0; padding:12px 24px; font-size:13px;">Book now</a>
+      </div>
+      <div class="price-card pop">
+        <span class="tag">Most popular</span><h3>Unlimited</h3>
+        <div class="amt">R1,450<span>/mo</span></div>
+        <p>Every class, every week. Freeze anytime with 48hrs notice.</p>
+        <a href="#" class="btn" style="margin-top:0; padding:12px 24px; font-size:13px;">Join now</a>
+      </div>
+      <div class="price-card">
+        <span class="tag">3x / week</span><h3>Half Access</h3>
+        <div class="amt">R950<span>/mo</span></div>
+        <p>Three sessions a week, your pick of the schedule.</p>
+        <a href="#" class="btn" style="margin-top:0; padding:12px 24px; font-size:13px;">Join now</a>
+      </div>
+    </div>
+  </div>
+</section>
+<a class="wa-float" href="#" aria-label="Book on WhatsApp" title="Book your free session on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36c1.36.71 2.9 1.12 4.62 1.12 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.71 13.98c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.19-3.55-.76-2.98-1.23-4.9-4.24-5.05-4.44-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.61.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.94.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+</a>
+<footer>Forge Athletics — Woodstock, Cape Town · Example concept built by Ahoora Studio</footer>
+</body>
+</html>
