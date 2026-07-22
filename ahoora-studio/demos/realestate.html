@@ -6,7 +6,6 @@
 <title>Meridian Properties</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
   :root{--stone:#ece7dd; --ink:#1b2a3a; --brass:#b08d57; --muted:#5b6672;}
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -69,9 +68,6 @@
     transition:transform .25s ease;
   }
   .wa-float:hover{transform:scale(1.08);}
-  #house3d-wrap{position:absolute; right:5%; top:50%; transform:translateY(-55%); width:320px; height:320px; z-index:1;}
-  #house3d-wrap canvas{width:100% !important; height:100% !important;}
-  @media(max-width:960px){#house3d-wrap{display:none;}}
 </style>
 </head>
 <body>
@@ -84,7 +80,6 @@
     <p>A small agency that walks every property before listing it — so what you see is what you'll get.</p>
     <a href="#" class="btn">View current listings</a>
   </div>
-  <div id="house3d-wrap"><canvas id="house3d-canvas"></canvas></div>
 </section>
 <section class="listings">
   <div class="wrap">
@@ -177,49 +172,6 @@
     noResults.style.display = visible === 0 ? 'block' : 'none';
   }
   [suburb, beds, price].forEach(el => el.addEventListener('change', applyFilters));
-</script>
-<script>
-(function(){
-  const wrap = document.getElementById('house3d-wrap');
-  const canvas = document.getElementById('house3d-canvas');
-  if(!wrap || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof THREE === 'undefined'){ return; }
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, wrap.clientWidth/wrap.clientHeight, 0.1, 100);
-  camera.position.set(3,2,5); camera.lookAt(0,0,0);
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-
-  const group = new THREE.Group();
-  const wireMat = new THREE.LineBasicMaterial({color:0xb08d57});
-  const boxGeo = new THREE.BoxGeometry(2.4,1.6,2.2);
-  const boxEdges = new THREE.EdgesGeometry(boxGeo);
-  group.add(new THREE.LineSegments(boxEdges, wireMat));
-  const roofGeo = new THREE.ConeGeometry(1.9,1.1,4);
-  roofGeo.rotateY(Math.PI/4);
-  const roofEdges = new THREE.EdgesGeometry(roofGeo);
-  const roof = new THREE.LineSegments(roofEdges, wireMat);
-  roof.position.y = 1.35;
-  group.add(roof);
-  // subtle fill so it doesn't look flat
-  const fillMat = new THREE.MeshBasicMaterial({color:0x1b2a3a, transparent:true, opacity:0.15});
-  group.add(new THREE.Mesh(boxGeo, fillMat));
-  scene.add(group);
-  group.rotation.y = 0.5;
-
-  let mx=0;
-  wrap.addEventListener('mousemove',(e)=>{ const r=wrap.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-0.5; });
-  function animate(){
-    requestAnimationFrame(animate);
-    group.rotation.y += 0.004 + mx*0.008;
-    renderer.render(scene, camera);
-  }
-  animate();
-  window.addEventListener('resize', ()=>{
-    camera.aspect = wrap.clientWidth/wrap.clientHeight; camera.updateProjectionMatrix();
-    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  });
-})();
 </script>
 </body>
 </html>

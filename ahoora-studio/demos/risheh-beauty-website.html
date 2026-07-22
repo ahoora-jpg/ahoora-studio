@@ -6,7 +6,6 @@
 <title>ریشه | مراقبت طبیعی مو و پوست</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
   :root{
     --ink:#1b1712;
@@ -253,9 +252,6 @@
     transition:transform .25s ease;
   }
   .wa-float:hover{transform:scale(1.08);}
-  #root3d-wrap{position:absolute; left:6%; bottom:8%; width:300px; height:300px; z-index:1; opacity:0.9;}
-  #root3d-wrap canvas{width:100% !important; height:100% !important;}
-  @media(max-width:900px){#root3d-wrap{display:none;}}
 </style>
 </head>
 <body>
@@ -291,7 +287,6 @@
     </div>
   </div>
   <div class="scroll-cue"><span>پیمایش</span><div class="line"></div></div>
-  <div id="root3d-wrap"><canvas id="root3d-canvas"></canvas></div>
 </header>
 
 <div class="concern-nav">
@@ -466,59 +461,5 @@
 <a class="wa-float" href="#" aria-label="گفتگو در واتس‌اپ" title="سوالی دارید؟ در واتس‌اپ بپرسید">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36c1.36.71 2.9 1.12 4.62 1.12 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.71 13.98c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.19-3.55-.76-2.98-1.23-4.9-4.24-5.05-4.44-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.61.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.94.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
 </a>
-<script>
-(function(){
-  const wrap = document.getElementById('root3d-wrap');
-  const canvas = document.getElementById('root3d-canvas');
-  if(!wrap || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof THREE === 'undefined'){ return; }
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, wrap.clientWidth/wrap.clientHeight, 0.1, 100);
-  camera.position.z = 6.5;
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  const group = new THREE.Group();
-  scene.add(group);
-  const nodeCount = 12;
-  const nodes = [];
-  const nodeGeo = new THREE.SphereGeometry(0.08, 12, 12);
-  const goldMat = new THREE.MeshBasicMaterial({color:0xe2a33b});
-  const sageMat = new THREE.MeshBasicMaterial({color:0x9fae86});
-  for(let i=0;i<nodeCount;i++){
-    const phi = Math.acos(-1 + (2*i)/nodeCount);
-    const theta = Math.sqrt(nodeCount*Math.PI) * phi;
-    const r = 2.2;
-    const x = r*Math.cos(theta)*Math.sin(phi);
-    const y = r*Math.sin(theta)*Math.sin(phi)*0.7 - 0.5;
-    const z = r*Math.cos(phi);
-    const mesh = new THREE.Mesh(nodeGeo, i % 3 === 0 ? sageMat : goldMat);
-    mesh.position.set(x,y,z);
-    group.add(mesh);
-    nodes.push(mesh.position);
-  }
-  const lineMat = new THREE.LineBasicMaterial({color:0xe2a33b, transparent:true, opacity:0.4});
-  for(let i=0;i<nodes.length;i++){
-    for(let j=i+1;j<nodes.length;j++){
-      if(nodes[i].distanceTo(nodes[j]) < 2.3){
-        const geo = new THREE.BufferGeometry().setFromPoints([nodes[i], nodes[j]]);
-        group.add(new THREE.Line(geo, lineMat));
-      }
-    }
-  }
-  let mx=0,my=0;
-  wrap.addEventListener('mousemove',(e)=>{ const r=wrap.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-0.5; my=(e.clientY-r.top)/r.height-0.5; });
-  function animate(){
-    requestAnimationFrame(animate);
-    group.rotation.y += 0.003;
-    group.rotation.x += (my*0.3 - group.rotation.x)*0.03;
-    renderer.render(scene, camera);
-  }
-  animate();
-  window.addEventListener('resize', ()=>{
-    camera.aspect = wrap.clientWidth/wrap.clientHeight; camera.updateProjectionMatrix();
-    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  });
-})();
-</script>
 </body>
 </html>

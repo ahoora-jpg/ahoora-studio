@@ -6,7 +6,6 @@
 <title>Forge Athletics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
   :root{--bg:#0d0d0d; --panel:#161616; --hot:#ff4d2e; --steel:#9aa0a6; --text:#f2f2f0;}
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -73,9 +72,6 @@
     transition:transform .25s ease;
   }
   .wa-float:hover{transform:scale(1.08);}
-  #bar3d-wrap{position:absolute; right:4%; top:50%; transform:translateY(-50%); width:340px; height:340px; z-index:1;}
-  #bar3d-wrap canvas{width:100% !important; height:100% !important;}
-  @media(max-width:960px){#bar3d-wrap{display:none;}}
 </style>
 </head>
 <body>
@@ -91,7 +87,6 @@
       <div class="bar-track"><div class="bar-fill"></div></div>
     </div>
   </div>
-  <div id="bar3d-wrap"><canvas id="bar3d-canvas"></canvas></div>
 </section>
 <section class="stats">
   <div class="wrap stats-grid">
@@ -152,50 +147,5 @@
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36c1.36.71 2.9 1.12 4.62 1.12 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.71 13.98c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.19-3.55-.76-2.98-1.23-4.9-4.24-5.05-4.44-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.61.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.94.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
 </a>
 <footer>Forge Athletics — Woodstock, Cape Town · Example concept built by Ahoora Studio</footer>
-<script>
-(function(){
-  const wrap = document.getElementById('bar3d-wrap');
-  const canvas = document.getElementById('bar3d-canvas');
-  if(!wrap || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof THREE === 'undefined'){ return; }
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, wrap.clientWidth/wrap.clientHeight, 0.1, 100);
-  camera.position.set(0,0,7);
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-  const light = new THREE.DirectionalLight(0xffffff, 0.9); light.position.set(4,5,6); scene.add(light);
-
-  const group = new THREE.Group();
-  const steelMat = new THREE.MeshStandardMaterial({color:0x2a2a2a, roughness:0.35, metalness:0.7});
-  const hotMat = new THREE.MeshStandardMaterial({color:0xff4d2e, roughness:0.4, metalness:0.3});
-  const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,5.2,20), steelMat);
-  bar.rotation.z = Math.PI/2; group.add(bar);
-  function addPlates(xPos){
-    [ [0.85,0.85,0.28,hotMat], [0.65,0.65,0.22,steelMat], [0.5,0.5,0.2,hotMat] ].forEach((p,idx)=>{
-      const plate = new THREE.Mesh(new THREE.CylinderGeometry(p[0],p[1],p[2],28), p[3]);
-      plate.rotation.z = Math.PI/2;
-      plate.position.x = xPos + idx*0.26*Math.sign(xPos);
-      group.add(plate);
-    });
-  }
-  addPlates(1.9); addPlates(-1.9);
-  scene.add(group);
-
-  let mx=0,my=0;
-  wrap.addEventListener('mousemove',(e)=>{ const r=wrap.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-0.5; my=(e.clientY-r.top)/r.height-0.5; });
-  function animate(){
-    requestAnimationFrame(animate);
-    group.rotation.x += 0.005;
-    group.rotation.z += (mx*0.4 - group.rotation.z)*0.04;
-    renderer.render(scene, camera);
-  }
-  animate();
-  window.addEventListener('resize', ()=>{
-    camera.aspect = wrap.clientWidth/wrap.clientHeight; camera.updateProjectionMatrix();
-    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  });
-})();
-</script>
 </body>
 </html>

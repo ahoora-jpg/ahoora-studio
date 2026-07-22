@@ -6,7 +6,6 @@
 <title>Ember Roasters — Specialty Coffee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
   :root{
     --bg:#2b211a; --bg-2:#221a14; --paper:#f6ede1;
@@ -68,9 +67,6 @@
   .wa-float:hover{transform:scale(1.08);}
 
   footer{padding:50px 32px; text-align:center; color:var(--muted); font-size:13.5px;}
-  #cup3d-wrap{position:absolute; right:6%; top:22%; width:280px; height:280px; z-index:1;}
-  #cup3d-wrap canvas{width:100% !important; height:100% !important;}
-  @media(max-width:900px){#cup3d-wrap{display:none;}}
 </style>
 </head>
 <body>
@@ -87,7 +83,6 @@
     <p>Roasted twice a week in-house. No syrups pretending to be flavor — just beans we'd drink ourselves.</p>
     <a href="#" class="btn">See today's roast</a>
   </div>
-  <div id="cup3d-wrap"><canvas id="cup3d-canvas"></canvas></div>
 </section>
 <section class="menu">
   <div class="wrap">
@@ -121,50 +116,5 @@
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36c1.36.71 2.9 1.12 4.62 1.12 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.71 13.98c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.19-3.55-.76-2.98-1.23-4.9-4.24-5.05-4.44-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.61.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.94.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
 </a>
 <footer>Ember Roasters — 14 Bree Street, Cape Town · Example concept built by Ahoora Studio</footer>
-<script>
-(function(){
-  const wrap = document.getElementById('cup3d-wrap');
-  const canvas = document.getElementById('cup3d-canvas');
-  if(!wrap || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof THREE === 'undefined'){ return; }
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, wrap.clientWidth/wrap.clientHeight, 0.1, 100);
-  camera.position.set(0, 0.4, 6);
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-  const light = new THREE.DirectionalLight(0xffffff, 0.8);
-  light.position.set(3,4,5); scene.add(light);
-
-  const group = new THREE.Group();
-  const bodyMat = new THREE.MeshStandardMaterial({color:0xa15c34, roughness:0.5, metalness:0.1});
-  const rimMat = new THREE.MeshStandardMaterial({color:0xf6ede1, roughness:0.6});
-  const body = new THREE.Mesh(new THREE.CylinderGeometry(1.1,0.9,1.6,32,1,true), bodyMat);
-  group.add(body);
-  const rim = new THREE.Mesh(new THREE.TorusGeometry(1.1,0.07,12,32), rimMat);
-  rim.rotation.x = Math.PI/2; rim.position.y = 0.8;
-  group.add(rim);
-  const saucer = new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.6,0.12,32), rimMat);
-  saucer.position.y = -0.85; group.add(saucer);
-  const handle = new THREE.Mesh(new THREE.TorusGeometry(0.55,0.14,12,24, Math.PI*1.4), bodyMat);
-  handle.position.set(1.35,0,0); handle.rotation.z = Math.PI/2.3; handle.rotation.y = 0.3;
-  group.add(handle);
-  group.rotation.x = 0.15;
-  scene.add(group);
-
-  let mx=0;
-  wrap.addEventListener('mousemove',(e)=>{ const r=wrap.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-0.5; });
-  function animate(){
-    requestAnimationFrame(animate);
-    group.rotation.y += 0.006 + mx*0.01;
-    renderer.render(scene, camera);
-  }
-  animate();
-  window.addEventListener('resize', ()=>{
-    camera.aspect = wrap.clientWidth/wrap.clientHeight; camera.updateProjectionMatrix();
-    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  });
-})();
-</script>
 </body>
 </html>

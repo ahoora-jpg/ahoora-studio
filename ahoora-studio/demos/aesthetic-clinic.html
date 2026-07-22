@@ -6,7 +6,6 @@
 <title>Verre Aesthetic Clinic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
   :root{--bg:#faf7f4; --ink:#2b2624; --rose:#c98a83; --sage:#a8b5a0; --muted:#8a8078;}
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -51,9 +50,6 @@
     display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.25); transition:transform .25s ease;}
   .wa-float:hover{transform:scale(1.08);}
   footer{padding:44px 32px; text-align:center; color:var(--muted); font-size:13px;}
-  #glass3d-wrap{position:absolute; right:5%; top:50%; transform:translateY(-55%); width:300px; height:300px; z-index:1;}
-  #glass3d-wrap canvas{width:100% !important; height:100% !important;}
-  @media(max-width:960px){#glass3d-wrap{display:none;}}
 </style>
 </head>
 <body>
@@ -68,7 +64,6 @@
       <span>HPCSA registered</span><span>Doctor-led</span><span>Private & discreet</span>
     </div>
   </div>
-  <div id="glass3d-wrap"><canvas id="glass3d-canvas"></canvas></div>
 </section>
 <section class="treatments">
   <div class="wrap">
@@ -101,52 +96,5 @@
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36c1.36.71 2.9 1.12 4.62 1.12 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.71 13.98c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.19-3.55-.76-2.98-1.23-4.9-4.24-5.05-4.44-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.61.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.94.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
 </a>
 <footer>Verre Aesthetic Clinic — Kloof Street, Cape Town · Example concept built by Ahoora Studio</footer>
-<script>
-(function(){
-  const wrap = document.getElementById('glass3d-wrap');
-  const canvas = document.getElementById('glass3d-canvas');
-  if(!wrap || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof THREE === 'undefined'){ return; }
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, wrap.clientWidth/wrap.clientHeight, 0.1, 100);
-  camera.position.set(0,0,6.5);
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-  const light = new THREE.DirectionalLight(0xffffff, 1); light.position.set(4,5,6); scene.add(light);
-  const light2 = new THREE.PointLight(0xc98a83, 0.6); light2.position.set(-3,-2,3); scene.add(light2);
-
-  const group = new THREE.Group();
-  const glassMat = new THREE.MeshPhysicalMaterial({
-    color:0xffffff, transparent:true, opacity:0.28, roughness:0.05, metalness:0,
-    transmission:0.6, clearcoat:1, clearcoatRoughness:0.1
-  });
-  const sphere = new THREE.Mesh(new THREE.SphereGeometry(1.7,48,48), glassMat);
-  group.add(sphere);
-  const wireMat = new THREE.MeshBasicMaterial({color:0xc98a83, wireframe:true, transparent:true, opacity:0.35});
-  const wireSphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.72,1), wireMat);
-  group.add(wireSphere);
-  const coreMat = new THREE.MeshStandardMaterial({color:0xa8b5a0, roughness:0.3});
-  const core = new THREE.Mesh(new THREE.SphereGeometry(0.35,24,24), coreMat);
-  group.add(core);
-  scene.add(group);
-
-  let mx=0,my=0;
-  wrap.addEventListener('mousemove',(e)=>{ const r=wrap.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-0.5; my=(e.clientY-r.top)/r.height-0.5; });
-  function animate(){
-    requestAnimationFrame(animate);
-    wireSphere.rotation.y += 0.004;
-    wireSphere.rotation.x += 0.002;
-    group.rotation.y += (mx*0.5 - group.rotation.y)*0.03;
-    group.rotation.x += (my*0.3 - group.rotation.x)*0.03;
-    renderer.render(scene, camera);
-  }
-  animate();
-  window.addEventListener('resize', ()=>{
-    camera.aspect = wrap.clientWidth/wrap.clientHeight; camera.updateProjectionMatrix();
-    renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-  });
-})();
-</script>
 </body>
 </html>

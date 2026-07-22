@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Ahoora Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:70px;}
+  @media(max-width:900px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-form{display:grid; gap:16px;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:560px){.row2{grid-template-columns:1fr;}}
+  .contact-form label{font-size:13px; color:var(--text-muted); margin-bottom:6px; display:block;}
+  .contact-form input, .contact-form textarea, .contact-form select{
+    width:100%; background:var(--ink-2); border:1px solid var(--line); color:var(--text-light);
+    padding:14px 16px; font-family:'IBM Plex Sans'; font-size:14.5px; border-radius:3px;
+  }
+  .contact-form textarea{resize:vertical; min-height:110px;}
+  .contact-form input::placeholder, .contact-form textarea::placeholder{color:var(--text-muted);}
+  .direct{margin-top:6px;}
+  .direct-item{display:flex; gap:16px; align-items:flex-start; padding:20px 0; border-bottom:1px solid var(--line);}
+  .direct-item .k{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:6px; display:block;}
+  .direct-item .v{font-size:15.5px;}
+  .direct-item a{color:var(--gold);}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><em>Ahoora</em> Studio</a>
+  <div class="nav-links">
+    <a href="work.html" class="ghost">Work</a>
+    <a href="services.html" class="ghost">Services</a>
+    <a href="about.html" class="ghost">About</a>
+    <a href="contact.html" class="nav-cta">Start a project</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Get in touch</div>
+    <h1>Tell me about your business — I'll reply with a clear quote and timeline.</h1>
+    <p>Usually within a day. No obligation, no pressure.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap contact-grid">
+    <form class="contact-form" onsubmit="event.preventDefault(); this.innerHTML='<div style=\'padding:60px 20px; text-align:center;\'><h3 style=\'font-family:Fraunces,serif; font-size:24px; margin-bottom:10px;\'>Thanks — message sent.</h3><p style=\'color:var(--text-muted); font-size:15px;\'>I\\'ll get back to you within a day.</p></div>';">
+      <div class="row2">
+        <div><label>Your name</label><input type="text" placeholder="Full name" required></div>
+        <div><label>Business name</label><input type="text" placeholder="If you have one"></div>
+      </div>
+      <div class="row2">
+        <div><label>Email</label><input type="email" placeholder="you@email.com" required></div>
+        <div><label>WhatsApp / phone</label><input type="text" placeholder="Optional"></div>
+      </div>
+      <div>
+        <label>What do you need?</label>
+        <select>
+          <option>A new website</option>
+          <option>An online store</option>
+          <option>Changes to an existing site</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div>
+        <label>Tell me about the project</label>
+        <textarea placeholder="What does the business do, and what should the site help with?"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-top:6px;">Send message</button>
+    </form>
+
+    <div>
+      <div class="direct">
+        <div class="direct-item"><div><span class="k">Email</span><span class="v"><a href="mailto:arya.master1981@gmail.com">arya.master1981@gmail.com</a></span></div></div>
+        <div class="direct-item"><div><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/989355646959" target="_blank">+98 935 564 6959</a></span></div></div>
+        <div class="direct-item"><div><span class="k">Telegram</span><span class="v"><a href="https://t.me/ahoora_ala" target="_blank">@ahoora_ala</a></span></div></div>
+        <div class="direct-item"><div><span class="k">Response time</span><span class="v">Usually within 24 hours</span></div></div>
+        <div class="direct-item"><div><span class="k">Based</span><span class="v">Working remotely, serving Cape Town & the Western Cape</span></div></div>
+        <div class="direct-item" style="border-bottom:none;"><div><span class="k">Good to know</span><span class="v">Every quote is fixed-price and confirmed in writing before work starts — see <a href="services.html">services & pricing</a>.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col" style="max-width:260px;"><h4><em>Ahoora</em> Studio</h4><p style="color:var(--text-muted); font-size:14px; line-height:1.8;">Web design and development for small businesses, built remotely and shipped fast.</p></div>
+      <div class="foot-col"><h4>Site</h4><a href="work.html">Work</a><a href="services.html">Services</a><a href="about.html">About</a></div>
+      <div class="foot-col"><h4>Start here</h4><a href="contact.html">Contact</a><a href="mailto:arya.master1981@gmail.com">arya.master1981@gmail.com</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Ahoora Studio</span><span>Based abroad, building for Cape Town</span></div>
+  </div>
+</footer>
+<div class="contact-float">
+  <a class="cf-whatsapp" href="https://wa.me/989355646959" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.36c1.36.71 2.9 1.12 4.62 1.12 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.71 13.98c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.19-3.55-.76-2.98-1.23-4.9-4.24-5.05-4.44-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.68.52.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.61.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.94.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+  </a>
+  <a class="cf-telegram" href="https://t.me/ahoora_ala" target="_blank" aria-label="Telegram" title="Telegram">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.29l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-2 1.92c-.23.23-.42.42-.82.42z"/></svg>
+  </a>
+  <a class="cf-email" href="mailto:arya.master1981@gmail.com" aria-label="Email" title="Email">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14161f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 6l-10 7L2 6"></path></svg>
+  </a>
+</div>
+</body>
+</html>
